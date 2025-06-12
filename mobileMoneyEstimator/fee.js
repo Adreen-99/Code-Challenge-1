@@ -1,54 +1,38 @@
 //This script calculates the fees for a mobile money transfer based on the amount specified by the user.
 // It prompts the user for the amount and outputs the calculated fees.
 
-// Input setup
-// The script uses the readline module to read user input from the console.
-const readline = require('readline');
-
 // Function to calculate the fees based on the amount
-function estimateTransactionFee(amountToSend) {
-    let fee = amountToSend * 0.015; 
+function estimateTransactionFee() {
+  // Prompt the user to enter the amount they wish to send.
+  let amountToSendInp = prompt("What amount do you wish to spend");
 
-    if (fee < 10) {
-        fee = 10; // Minimum fee is Ksh 10
-    } else if (fee > 70) {
-        fee = 70; // Maximum fee is Ksh 1000
-    }
-    // Output the fee and total amount
-    const totalDebited = amountToSend + fee; // Total amount including the fee
+  // Convert the input string to a floating-point number.
+  let amountToSend = parseFloat(amountToSendInp);
 
-    console.log('nSending KES ${amountToSend}:');
-    console.log(`Caculated Transaction Fee: KES ${fee}`);
-    console.log(`Total Amount debited: KES ${totalDebited}`);
-    console.log("\nSend Money Securely!");
+  // Validate the input: Check if it's a valid number and greater than zero.
+  if (isNaN(amountToSend) || amountToSend <= 0) {
+    // Log an error message if the input is invalid.
+    console.log("Please enter a valid amount.");
+    return; // Exit the function to prevent further execution with invalid data.
+  }
 
-}
+  // Define a constant for the basic transaction fee rate (1.5%).
+  const basicTransactionRate = 0.015;
 
-//Create interface to read from the terminal
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+  // Determine the transaction fee based on the amount to send using conditional logic.
+  if (amountToSend <= 500) {
 
-
-function promptForTransactionAmount(){
-
-//Ask the user for the amount to send and validate input
-rl.question('Unatuma Ngapi? (KES): ', function(input) {
-    const amountToSend = parseFloat(input);
-
-    if(isNaN (amountToSend) && amountToSend > 0) {
-        estimateTransactionFee(amountToSend); // Call the function to calculate fees
-    }else{
-        console.log("\nTafadhali weka kiasi sahihi cha pesa.");
-
-        rl.close(); // Close the readline interface after input
-    }
-
+    // For amounts less than or equal to KES 500.
+    console.log('Sending KES ${amountToSend}:');
+    console.log(`Transaction Fee: KES 70`);
+    console.log(`Total Amount debited: KES ${amountToSend + 70}`);
     
+}
 
-});
+console.log(`Send Money Securely!`);
 
 }
 
-promptForTransactionAmount(); // Start the program by prompting the user for the amount
+//Call the function to initiate the transaction payment estimator process
+estimateTransactionFee();
+

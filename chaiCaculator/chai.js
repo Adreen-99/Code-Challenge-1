@@ -1,24 +1,23 @@
-// This script calculates the ingredients needed to make Kenyan Chai based on the number of cups specified by the user.
-// It prompts the user for the number of cups and outputs the required amounts of water, milk, tea leaves, and sugar.   
+function calculateChaiIngredients() {
+  // Prompt the user for the number of cups
+  let numberOfCupsInput = prompt("How many cups of Chai Bora would you like to make?");
 
+  // Convert the input to a number
+  let numberOfCups = parseFloat(numberOfCupsInput);
 
-//Input setup
-// The script uses the readline module to read user input from the console.
-const readline = require('readline');
+  // Check if the input is a valid number
+  if (isNaN(numberOfCups) || numberOfCups <= 0) {
+    console.log("Please enter a valid number of cups.");
+    return; // Exit the function if the input is invalid
+  }
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-}); 
-
-// Function to calculate the ingredients based on the number of cups
-
-function calculateChaiIngredients(numberOfCups) {
+    //Recipe for 1 cup
     const waterPerCup = 200; 
     const milkPerCup = 50;
     const teaPerCup = 1;
     const sugarPerCup = 2;
 
+    //Caculatee required amounts
     const totalWater = waterPerCup * numberOfCups;
     const totalMilk = milkPerCup * numberOfCups;
     const totalTea = teaPerCup * numberOfCups;
@@ -34,21 +33,5 @@ function calculateChaiIngredients(numberOfCups) {
 
 } 
 
-// Function to prompt the user for the number of cups and validate input
-
-function promptForCups() {
-    rl.question('How many cups of Kenyan Chai would you like to make? ', (input) => {
-        const numberOfCups = parseInt(input, 10);
-        if (isNaN(numberOfCups) || numberOfCups <= 0) {
-            console.log('Please enter a valid number of cups.');
-            promptForCups(); // Prompt again if input is invalid
-        } else {
-            const ingredients = calculateChaiIngredients(numberOfCups);
-            // Close the readline interface after calculation
-            rl.close();
-        }
-    });
-} 
-
-// Start the program by prompting the user for the number of cups
-promptForCups(); 
+//Call the function 
+calculateChaiIngredients();

@@ -1,13 +1,18 @@
-//input set-up(readline module);
-//This is a Node js version using readline module to read user input from the console.
-const readline = require('readline');
-const {stdin: input, stdout: output} = require('process');
+function calculateBodaFare() {
+  // Prompt the user to enter the distance in kilometers.
+  let distanceInKmInput = prompt("Where are you headed? how far is it in kilometers?");
 
-//Input setup
-const rl = readline.createInterface({ input, output });
+  // Convert the input string to a floating-point number.
+  let distanceInKm = parseFloat(distanceInKmInput);
 
-// Function to calculate the fare based on the distance
-function calculateBodaFare(distanceInKm) {
+  // Validate the input: Check if it's a valid number and greater than zero.
+  if (isNaN(distanceInKm) || distanceInKm <= 0) {
+    // Log an error message if the input is invalid.
+    console.log("Please enter a valid distance.");
+    return; // Exit the function to prevent further execution with invalid data.
+  }
+
+    //Creating constant values : 
     const baseFare = 50; // Base fare in Ksh
     const chargePerKm = 15; // Fare per kilometer in Ksh
 
@@ -23,19 +28,6 @@ function calculateBodaFare(distanceInKm) {
   console.log("Panda Pikipiki!\n");
 
 }
-// Function to prompt the user for the distance and validate input
-rl.question("Unafika wapi Mkubwa? Kilomita ngapi?:", function(userInput) {
-    const distanceInKm = parseFloat(userInput);
 
-    if (isNaN(distanceInKm) && distanceInKm > 0) {
-        calculateBodaFare(distanceInKm);
-
-    }else {
-        console.log("Tafadhali ingiza umbali halali kwa kilomita.");
-
-    }
-
-    rl.close(); // Close the readline interface if input is invalid
-    
-
-});
+//Call the function to initiate fare payment process
+calculateBodaFare();
